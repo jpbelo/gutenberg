@@ -26,10 +26,10 @@ import useBlockNavigator from './use-block-navigator';
 
 function NavigationMenu( {
 	attributes,
-	setAttributes,
 	clientId,
 	pages,
 	isRequesting,
+	setAttributes,
 } ) {
 	const { navigatorToolbarButton, navigatorModal } = useBlockNavigator( clientId );
 	const defaultMenuItems = useMemo(
@@ -77,6 +77,7 @@ function NavigationMenu( {
 						template={ defaultMenuItems ? defaultMenuItems : null }
 						allowedBlocks={ [ 'core/navigation-menu-item' ] }
 						templateInsertUpdatesSelection={ false }
+						horizontalMover={ true }
 					/>
 				}
 			</div>
