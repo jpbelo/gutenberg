@@ -109,7 +109,7 @@ class AudioEdit extends Component {
 
 	render() {
 		const { autoplay, caption, loop, preload, src } = this.props.attributes;
-		const { setAttributes, isSelected, className } = this.props;
+		const { setAttributes, isSelected, className, noticeUI } = this.props;
 		const onSelectAudio = ( media ) => {
 			if ( ! media || ! media.url ) {
 				// in this case there was an error and we should continue in the editing state
@@ -142,8 +142,16 @@ class AudioEdit extends Component {
 		/* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/onclick-has-role, jsx-a11y/click-events-have-key-events */
 		return (
 			<MediaFlow
+				className={ className }
 				onSelectMedia={ onSelectAudio }
+				onSelect={ onSelectAudio }
+				onSelectURL={ this.onSelectURL }
 				mediaURL={ src }
+				accepts={ 'audio/*' }
+				allowedTypes={ ALLOWED_MEDIA_TYPES }
+				value={ this.props.attributes }
+				notices={ noticeUI }
+				onError={ this.onUploadError }
 			>
 				<InspectorControls>
 					<PanelBody title={ __( 'Audio Settings' ) }>
