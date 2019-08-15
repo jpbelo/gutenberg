@@ -56,6 +56,7 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 	};
 
 	const mediaLibraryButton = (
+
 		<MediaUploadCheck>
 			<MediaUpload
 				onSelect={ ( media ) => selectMedia( media ) }
