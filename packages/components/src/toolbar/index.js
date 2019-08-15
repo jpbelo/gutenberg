@@ -64,7 +64,9 @@ function Toolbar( { controls = [], children, className, isCollapsed, icon, label
 				label={ label }
 				controls={ controlSets }
 				className={ classnames( 'components-toolbar', className ) }
-			/>
+			>
+				{ children }
+			</DropdownMenu>
 		);
 	}
 
