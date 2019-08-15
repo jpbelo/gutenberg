@@ -107,6 +107,7 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 				icon={ false }
 				label={ name }
 				controls={ [] }
+				autoClose={ false }
 			>
 				{ () => (
 					<>

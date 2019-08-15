@@ -304,7 +304,9 @@ _Related_
 
 <a name="MediaFlow" href="#MediaFlow">#</a> **MediaFlow**
 
-Undocumented declaration.
+_Related_
+
+-   <https://github.com/WordPress/gutenberg/blob/master/packages/block-editor/src/components/media-placeholder/README.md>
 
 <a name="MediaPlaceholder" href="#MediaPlaceholder">#</a> **MediaPlaceholder**
 
