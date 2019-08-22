@@ -6,11 +6,13 @@ import { default as MediaPlaceholder } from '../media-placeholder';
 import BlockIcon from '../block-icon';
 import { default as MediaUpload } from '../media-upload';
 import { default as MediaUploadCheck } from '../media-upload/check';
+import { default as URLInput } from '../url-input';
+import { IgnoreNestedEvents } from '../ignore-nested-events';
 
 /**
  * WordPress dependencies
  */
-import { Fragment } from '@wordpress/element';
+import { Fragment, useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import {
 	FormFileUpload,
@@ -23,6 +25,8 @@ import { withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
 
 const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedTypes, onSelect, onSelectURL, notices, children, noticeOperations, name = __( 'Replace' ), multiple = false } ) => {
+	const [ URLinput, setURLinput ] = useState( false );
+
 	const selectMedia = ( media ) => {
 		onSelect( media );
 	};
@@ -76,9 +80,17 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 	const URLButton = (
 		<MenuItem
 			icon="admin-links"
-			onClick={ () => {} }
+			onClick={ () => ( setURLinput( ! URLinput ) ) }
 		>
-			{ __( 'Insert from URL' ) }
+			<div> { __( 'Insert from URL' ) } </div>
+			<IgnoreNestedEvents>
+				{ URLinput && <div className="media-flow-url-input__menu">
+					<URLInput
+						className=""
+						value={ 'url' }
+					/>
+				</div> }
+			</IgnoreNestedEvents>
 		</MenuItem>
 	);
 
@@ -95,6 +107,7 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 								icon={ false }
 								label={ name }
 								controls={ [] }
+								showLabel={ true }
 							>
 								{ () => (
 									<>

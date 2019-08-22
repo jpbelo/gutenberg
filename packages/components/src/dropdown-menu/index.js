@@ -35,6 +35,7 @@ function DropdownMenu( {
 	className,
 	controls,
 	hasArrowIndicator = false,
+	showLabel = false,
 	icon = 'menu',
 	label,
 	popoverProps,
@@ -104,7 +105,7 @@ function DropdownMenu( {
 						aria-expanded={ isOpen }
 						label={ label }
 					>
-						{ ! icon && <span className="components-dropdown-menu__label" > { label } </span> }
+						{ ( ! icon && showLabel ) && <span className="components-dropdown-menu__label" > { label } </span> }
 						{ ( ! icon || hasArrowIndicator ) && <span className="components-dropdown-menu__indicator" /> }
 					</IconButton>
 				);
