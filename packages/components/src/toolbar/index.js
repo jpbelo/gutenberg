@@ -42,7 +42,7 @@ import ToolbarContainer from './toolbar-container';
  *
  * @return {ReactElement} The rendered toolbar.
  */
-function Toolbar( { controls = [], children, className, isCollapsed, icon, label, autoClose, ...otherProps } ) {
+function Toolbar( { controls = [], children, className, isCollapsed, icon, label, ...otherProps } ) {
 	if (
 		( ! controls || ! controls.length ) &&
 		! children
@@ -64,7 +64,6 @@ function Toolbar( { controls = [], children, className, isCollapsed, icon, label
 				label={ label }
 				controls={ controlSets }
 				className={ classnames( 'components-toolbar', className ) }
-				autoClose={ autoClose }
 			>
 				{ children }
 			</DropdownMenu>

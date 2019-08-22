@@ -53,9 +53,7 @@ class Dropdown extends Component {
 	 * in case when focus is moved to the modal dialog.
 	 */
 	closeIfFocusOutside() {
-		const { autoClose } = this.props;
 		if (
-			autoClose &&
 			! this.containerRef.current.contains( document.activeElement ) &&
 			! document.activeElement.closest( '[role="dialog"]' )
 		) {

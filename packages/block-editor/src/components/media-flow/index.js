@@ -55,24 +55,6 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 		} );
 	};
 
-	const mediaLibraryButton = (
-
-		<MediaUploadCheck>
-			<MediaUpload
-				onSelect={ ( media ) => selectMedia( media ) }
-				allowedTypes={ allowedTypes }
-				render={ ( { open } ) => (
-					<MenuItem
-						icon="admin-media"
-						onClick={ open }
-					>
-						{ __( 'Open Media Library' ) }
-					</MenuItem>
-				) }
-			/>
-		</MediaUploadCheck>
-	);
-
 	const fileUploadButton = (
 		<FormFileUpload
 			onChange={ uploadFiles }
@@ -102,21 +84,35 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 
 	const editMediaButton = (
 		<BlockControls>
-			<Toolbar
-				isCollapsed={ true }
-				icon={ false }
-				label={ name }
-				controls={ [] }
-				autoClose={ false }
-			>
-				{ () => (
-					<>
-						{ mediaUpload && mediaLibraryButton }
-						{ fileUploadButton }
-						{ URLButton }
-					</>
-				) }
-			</Toolbar>
+			<MediaUploadCheck>
+				<MediaUpload
+					onSelect={ ( media ) => selectMedia( media ) }
+					allowedTypes={ allowedTypes }
+					render={ ( { open } ) => (
+						<>
+							<Toolbar
+								isCollapsed={ true }
+								icon={ false }
+								label={ name }
+								controls={ [] }
+							>
+								{ () => (
+									<>
+										<MenuItem
+											icon="admin-media"
+											onClick={ open }
+										>
+											{ __( 'Open Media Library' ) }
+										</MenuItem>
+										{ fileUploadButton }
+										{ URLButton }
+									</>
+								) }
+							</Toolbar>
+						</>
+					) }
+				/>
+			</MediaUploadCheck>
 		</BlockControls>
 	);
 
