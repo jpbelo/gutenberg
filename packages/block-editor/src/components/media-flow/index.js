@@ -7,7 +7,6 @@ import BlockIcon from '../block-icon';
 import { default as MediaUpload } from '../media-upload';
 import { default as MediaUploadCheck } from '../media-upload/check';
 import { default as URLInput } from '../url-input';
-import { IgnoreNestedEvents } from '../ignore-nested-events';
 
 /**
  * WordPress dependencies
@@ -83,14 +82,12 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 			onClick={ () => ( setURLinput( ! URLinput ) ) }
 		>
 			<div> { __( 'Insert from URL' ) } </div>
-			<IgnoreNestedEvents>
-				{ URLinput && <div className="media-flow-url-input__menu">
-					<URLInput
-						className=""
-						value={ 'url' }
-					/>
-				</div> }
-			</IgnoreNestedEvents>
+			{ URLinput && <div className="media-flow-url-input__menu">
+				<URLInput
+					className=""
+					value={ 'url' }
+				/>
+			</div> }
 		</MenuItem>
 	);
 
