@@ -25,6 +25,7 @@ import { compose } from '@wordpress/compose';
 
 const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedTypes, onSelect, onSelectURL, notices, children, noticeOperations, name = __( 'Replace' ), multiple = false } ) => {
 	const [ URLinput, setURLinput ] = useState( false );
+	const [ mediaURLValue, setMediaURLValue ] = useState( '' );
 
 	const selectMedia = ( media ) => {
 		onSelect( media );
@@ -86,8 +87,9 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 			</MenuItem>
 			{ URLinput && <URLInput
 				className=""
-				value={ 'url' }
+				value={ mediaURLValue }
 				isFullWidth={ true }
+				onChange={ ( url ) => ( setMediaURLValue( url ) ) }
 			/> }
 		</>
 	);
