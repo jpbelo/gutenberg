@@ -19,6 +19,7 @@ import {
 	Toolbar,
 	withNotices,
 	withFilters,
+	IconButton,
 } from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
@@ -85,12 +86,15 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 			>
 				<div> { __( 'Insert from URL' ) } </div>
 			</MenuItem>
-			{ URLinput && <URLInput
-				className=""
-				value={ mediaURLValue }
-				isFullWidth={ true }
-				onChange={ ( url ) => ( setMediaURLValue( url ) ) }
-			/> }
+			{ URLinput && <div className="media-flow-url-input__menu">
+				<URLInput
+					className=""
+					value={ mediaURLValue }
+					isFullWidth={ true }
+					onChange={ ( url ) => ( setMediaURLValue( url ) ) }
+				/>
+				<IconButton icon="editor-break" label={ __( 'Apply' ) } type="submit" />
+			</div> }
 		</>
 	);
 
