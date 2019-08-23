@@ -115,6 +115,7 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 								label={ name }
 								controls={ [] }
 								showLabel={ true }
+								className={ 'media-flow_toolbar' }
 							>
 								{ () => (
 									<>
