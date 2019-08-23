@@ -6,7 +6,6 @@ import { default as MediaPlaceholder } from '../media-placeholder';
 import BlockIcon from '../block-icon';
 import { default as MediaUpload } from '../media-upload';
 import { default as MediaUploadCheck } from '../media-upload/check';
-import { default as URLInput } from '../url-input';
 
 /**
  * WordPress dependencies
@@ -19,10 +18,10 @@ import {
 	Toolbar,
 	withNotices,
 	withFilters,
-	IconButton,
 } from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
+import LinkEditor from '../url-popover/link-editor';
 
 const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedTypes, onSelect, onSelectURL, notices, children, noticeOperations, name = __( 'Replace' ), multiple = false } ) => {
 	const [ URLinput, setURLinput ] = useState( false );
@@ -87,13 +86,17 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 				<div> { __( 'Insert from URL' ) } </div>
 			</MenuItem>
 			{ URLinput && <div className="media-flow-url-input__menu">
-				<URLInput
+				<LinkEditor
 					className=""
 					value={ mediaURLValue }
 					isFullWidth={ true }
-					onChange={ ( url ) => ( setMediaURLValue( url ) ) }
+					onChangeInputValue={ ( url ) => ( setMediaURLValue( url ) ) }
+					onSubmit={ ( event ) => {
+						event.preventDefault();
+						selectURL( mediaURLValue );
+						setURLinput( ! URLinput );
+					} }
 				/>
-				<IconButton icon="editor-break" label={ __( 'Apply' ) } type="submit" />
 			</div> }
 		</>
 	);

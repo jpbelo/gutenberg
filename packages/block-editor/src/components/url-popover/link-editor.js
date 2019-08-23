@@ -35,6 +35,7 @@ export default function LinkEditor( {
 				value={ value }
 				onChange={ onChangeInputValue }
 				autocompleteRef={ autocompleteRef }
+				{ ...props }
 			/>
 			<IconButton icon="editor-break" label={ __( 'Apply' ) } type="submit" />
 		</form>
