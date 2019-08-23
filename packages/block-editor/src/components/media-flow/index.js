@@ -77,18 +77,19 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 	);
 
 	const URLButton = (
-		<MenuItem
-			icon="admin-links"
-			onClick={ () => ( setURLinput( ! URLinput ) ) }
-		>
-			<div> { __( 'Insert from URL' ) } </div>
-			{ URLinput && <div className="media-flow-url-input__menu">
-				<URLInput
-					className=""
-					value={ 'url' }
-				/>
-			</div> }
-		</MenuItem>
+		<>
+			<MenuItem
+				icon="admin-links"
+				onClick={ () => ( setURLinput( ! URLinput ) ) }
+			>
+				<div> { __( 'Insert from URL' ) } </div>
+			</MenuItem>
+			{ URLinput && <URLInput
+				className=""
+				value={ 'url' }
+				isFullWidth={ true }
+			/> }
+		</>
 	);
 
 	const editMediaButton = (
