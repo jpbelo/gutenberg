@@ -90,6 +90,7 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 					className=""
 					value={ mediaURLValue }
 					isFullWidth={ true }
+					hasBorder={ true }
 					onChangeInputValue={ ( url ) => ( setMediaURLValue( url ) ) }
 					onSubmit={ ( event ) => {
 						event.preventDefault();
