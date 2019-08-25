@@ -1,5 +1,34 @@
 .media-flow-url-input__menu {
 	padding: 10px;
+	// Mimic toolbar component styles for the icons in this popover.
+	.components-icon-button {
+		padding: 3px;
+		width: 40px;
+		height: 40px;
+
+		> svg {
+			padding: 5px;
+			border-radius: $radius-round-rectangle;
+			height: 30px;
+			width: 30px;
+		}
+
+		&:not(:disabled):not([aria-disabled="true"]):not(.is-default):hover {
+			box-shadow: none;
+
+			> svg {
+				@include formatting-button-style__hover;
+			}
+		}
+
+		&:not(:disabled):focus {
+			box-shadow: none;
+
+			> svg {
+				@include formatting-button-style__focus;
+			}
+		}
+	}
 }
 .components-dropdown-menu.media-flow_toolbar {
 	.components-dropdown-menu__label {
