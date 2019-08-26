@@ -40,6 +40,7 @@ function DropdownMenu( {
 	label,
 	popoverProps,
 	toggleProps,
+	onToggleHandler,
 	menuProps,
 	// The following props exist for backward compatibility.
 	menuLabel,
@@ -80,6 +81,7 @@ function DropdownMenu( {
 		<Dropdown
 			className={ classnames( 'components-dropdown-menu', className ) }
 			popoverProps={ mergedPopoverProps }
+			onToggle={ onToggleHandler }
 			renderToggle={ ( { isOpen, onToggle } ) => {
 				const openOnArrowDown = ( event ) => {
 					if ( ! isOpen && event.keyCode === DOWN ) {

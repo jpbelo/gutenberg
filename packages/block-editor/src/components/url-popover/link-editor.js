@@ -20,6 +20,8 @@ export default function LinkEditor( {
 	autocompleteRef,
 	className,
 	onChangeInputValue,
+	isFullWidth,
+	hasBorder,
 	value,
 	...props
 } ) {
@@ -35,7 +37,8 @@ export default function LinkEditor( {
 				value={ value }
 				onChange={ onChangeInputValue }
 				autocompleteRef={ autocompleteRef }
-				{ ...props }
+				isFullWidth={ isFullWidth }
+				hasBorder={ hasBorder }
 			/>
 			<IconButton icon="editor-break" label={ __( 'Apply' ) } type="submit" />
 		</form>

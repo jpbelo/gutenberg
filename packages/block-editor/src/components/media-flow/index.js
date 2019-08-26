@@ -117,6 +117,7 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 								controls={ [] }
 								showLabel={ true }
 								className={ 'media-flow_toolbar' }
+								onToggle={ () => ( setURLinput( false ) ) }
 							>
 								{ () => (
 									<>
