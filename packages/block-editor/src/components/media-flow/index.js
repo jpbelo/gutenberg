@@ -1,13 +1,4 @@
 /**
- * Internal dependencies
- */
-import BlockControls from '../block-controls';
-import { default as MediaPlaceholder } from '../media-placeholder';
-import BlockIcon from '../block-icon';
-import { default as MediaUpload } from '../media-upload';
-import { default as MediaUploadCheck } from '../media-upload/check';
-
-/**
  * WordPress dependencies
  */
 import { Fragment, useState } from '@wordpress/element';
@@ -17,25 +8,26 @@ import {
 	MenuItem,
 	Toolbar,
 	withNotices,
-	withFilters,
 } from '@wordpress/components';
 import { withSelect } from '@wordpress/data';
 import { compose } from '@wordpress/compose';
+
+/**
+ * Internal dependencies
+ */
+import BlockControls from '../block-controls';
+import MediaPlaceholder from '../media-placeholder';
+import BlockIcon from '../block-icon';
+import MediaUpload from '../media-upload';
+import MediaUploadCheck from '../media-upload/check';
 import LinkEditor from '../url-popover/link-editor';
 
 const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedTypes, onSelect, onSelectURL, notices, children, noticeOperations, name = __( 'Replace' ), multiple = false } ) => {
-	const [ URLinput, setURLinput ] = useState( false );
+	const [ showURLInput, setshowURLInput ] = useState( false );
 	const [ mediaURLValue, setMediaURLValue ] = useState( '' );
 
 	const selectMedia = ( media ) => {
 		onSelect( media );
-	};
-
-	const selectURL = ( URL ) => {
-		onSelectURL( URL );
-	};
-
-	const onCancel = () => {
 	};
 
 	const onUploadError = ( message ) => {
@@ -81,21 +73,20 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 		<>
 			<MenuItem
 				icon="admin-links"
-				onClick={ () => ( setURLinput( ! URLinput ) ) }
+				onClick={ () => ( setshowURLInput( ! showURLInput ) ) }
 			>
 				<div> { __( 'Insert from URL' ) } </div>
 			</MenuItem>
-			{ URLinput && <div className="media-flow-url-input__menu">
+			{ showURLInput && <div className="block-editor-media-flow__url-input">
 				<LinkEditor
-					className=""
 					value={ mediaURLValue }
 					isFullWidth={ true }
 					hasBorder={ true }
 					onChangeInputValue={ ( url ) => ( setMediaURLValue( url ) ) }
 					onSubmit={ ( event ) => {
 						event.preventDefault();
-						selectURL( mediaURLValue );
-						setURLinput( ! URLinput );
+						onSelectURL( mediaURLValue );
+						setshowURLInput( ! showURLInput );
 					} }
 				/>
 			</div> }
@@ -114,10 +105,9 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 								isCollapsed={ true }
 								icon={ false }
 								label={ name }
-								controls={ [] }
 								showLabel={ true }
 								className={ 'media-flow_toolbar' }
-								onToggleHandler={ () => ( setURLinput( false ) ) }
+								onToggleHandler={ () => ( setshowURLInput( false ) ) }
 							>
 								{ () => (
 									<>
@@ -142,10 +132,9 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 	const mediaPlaceholder = (
 		<MediaPlaceholder
 			icon={ <BlockIcon icon={ 'edit' } /> }
-			onCancel={ mediaURL && onCancel }
 			onSelect={ selectMedia }
 			onSelectMedia={ selectMedia }
-			onSelectURL={ selectURL }
+			onSelectURL={ onSelectURL }
 			accept={ accepts }
 			allowedTypes={ allowedTypes }
 			className={ className }
@@ -179,6 +168,5 @@ const applyWithSelect = withSelect( ( select ) => {
  */
 export default compose(
 	applyWithSelect,
-	withFilters( 'editor.MediaPlaceholder' ),
 	withNotices,
 )( MediaFlow );

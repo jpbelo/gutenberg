@@ -123,22 +123,6 @@ class AudioEdit extends Component {
 			this.setState( { src: media.url, editing: false } );
 		};
 
-		// if ( editing ) {
-		// 	return (
-		// 		<MediaPlaceholder
-		// 			icon={ <BlockIcon icon={ icon } /> }
-		// 			className={ className }
-		// 			onSelect={ onSelectAudio }
-		// 			onSelectURL={ this.onSelectURL }
-		// 			accept="audio/*"
-		// 			allowedTypes={ ALLOWED_MEDIA_TYPES }
-		// 			value={ this.props.attributes }
-		// 			notices={ noticeUI }
-		// 			onError={ this.onUploadError }
-		// 		/>
-		// 	);
-		// }
-
 		return (
 			<MediaFlow
 				className={ className }
