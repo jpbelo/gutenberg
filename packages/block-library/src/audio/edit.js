@@ -139,7 +139,6 @@ class AudioEdit extends Component {
 		// 	);
 		// }
 
-		/* eslint-disable jsx-a11y/no-static-element-interactions, jsx-a11y/onclick-has-role, jsx-a11y/click-events-have-key-events */
 		return (
 			<MediaFlow
 				className={ className }
