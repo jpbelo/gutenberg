@@ -40,7 +40,7 @@ function DropdownMenu( {
 	label,
 	popoverProps,
 	toggleProps,
-	onToggleHandler,
+	onToggle,
 	menuProps,
 	// The following props exist for backward compatibility.
 	menuLabel,
@@ -81,13 +81,13 @@ function DropdownMenu( {
 		<Dropdown
 			className={ classnames( 'components-dropdown-menu', className ) }
 			popoverProps={ mergedPopoverProps }
-			onToggle={ onToggleHandler }
-			renderToggle={ ( { isOpen, onToggle } ) => {
+			onToggle={ onToggle }
+			renderToggle={ ( { isOpen, onToggle: onDropdownToggle } ) => {
 				const openOnArrowDown = ( event ) => {
 					if ( ! isOpen && event.keyCode === DOWN ) {
 						event.preventDefault();
 						event.stopPropagation();
-						onToggle();
+						onDropdownToggle();
 					}
 				};
 				const mergedToggleProps = mergeProps( {
@@ -101,7 +101,7 @@ function DropdownMenu( {
 					<IconButton
 						{ ...mergedToggleProps }
 						icon={ icon }
-						onClick={ onToggle }
+						onClick={ onDropdownToggle }
 						onKeyDown={ openOnArrowDown }
 						aria-haspopup="true"
 						aria-expanded={ isOpen }
