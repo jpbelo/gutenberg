@@ -13,10 +13,13 @@ import {
 } from '@wordpress/components';
 import { safeDecodeURI, filterURLForDisplay } from '@wordpress/url';
 
-function LinkViewerUrl( { url, urlLabel, className } ) {
+function LinkViewerUrl( { url, urlLabel, className, isFullWidth } ) {
 	const linkClassName = classnames(
 		className,
-		'block-editor-url-popover__link-viewer-url'
+		'block-editor-url-popover__link-viewer-url',
+		{
+			'is-full-width': isFullWidth,
+		}
 	);
 
 	if ( ! url ) {
@@ -35,6 +38,7 @@ function LinkViewerUrl( { url, urlLabel, className } ) {
 
 export default function LinkViewer( {
 	className,
+	isFullWidth,
 	linkClassName,
 	onEditLinkClick,
 	url,
@@ -49,7 +53,7 @@ export default function LinkViewer( {
 			) }
 			{ ...props }
 		>
-			<LinkViewerUrl url={ url } urlLabel={ urlLabel } className={ linkClassName } />
+			<LinkViewerUrl url={ url } urlLabel={ urlLabel } className={ linkClassName } isFullWidth={ isFullWidth } />
 			{ onEditLinkClick && <IconButton icon="edit" label={ __( 'Edit' ) } onClick={ onEditLinkClick } /> }
 		</div>
 	);

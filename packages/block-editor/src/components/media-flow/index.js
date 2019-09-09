@@ -21,9 +21,11 @@ import BlockIcon from '../block-icon';
 import MediaUpload from '../media-upload';
 import MediaUploadCheck from '../media-upload/check';
 import LinkEditor from '../url-popover/link-editor';
+import LinkViewer from '../url-popover/link-viewer';
 
 const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedTypes, onSelect, onSelectURL, notices, children, noticeOperations, name = __( 'Replace' ), multiple = false } ) => {
 	const [ showURLInput, setshowURLInput ] = useState( false );
+	const [ showEditURLInput, setshowEditURLInput ] = useState( false );
 	const [ mediaURLValue, setMediaURLValue ] = useState( mediaURL );
 
 	const selectMedia = ( media ) => {
@@ -78,7 +80,7 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 				<div> { __( 'Insert from URL' ) } </div>
 			</MenuItem>
 			{ showURLInput && <div className="block-editor-media-flow__url-input">
-				<LinkEditor
+				{ showEditURLInput ? ( <LinkEditor
 					value={ mediaURLValue }
 					isFullWidth={ true }
 					hasBorder={ true }
@@ -86,10 +88,15 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 					onSubmit={ ( event ) => {
 						event.preventDefault();
 						onSelectURL( mediaURLValue );
-						setshowURLInput( ! showURLInput );
+						setshowEditURLInput( ! showEditURLInput );
 					} }
-				/>
-			</div> }
+				/> ) : ( <LinkViewer
+					isFullWidth={ true }
+					className="editor-format-toolbar__link-container-content block-editor-format-toolbar__link-container-content"
+					url={ mediaURLValue }
+					onEditLinkClick={ () => ( setshowEditURLInput( ! showEditURLInput ) ) }
+				/> )
+				} </div> }
 		</>
 	);
 

@@ -90,4 +90,7 @@
 	&.has-invalid-link {
 		color: $alert-red;
 	}
+	&.is-full-width {
+		width: 100%;
+	}
 }
