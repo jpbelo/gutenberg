@@ -24,7 +24,7 @@ import LinkEditor from '../url-popover/link-editor';
 
 const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedTypes, onSelect, onSelectURL, notices, children, noticeOperations, name = __( 'Replace' ), multiple = false } ) => {
 	const [ showURLInput, setshowURLInput ] = useState( false );
-	const [ mediaURLValue, setMediaURLValue ] = useState( '' );
+	const [ mediaURLValue, setMediaURLValue ] = useState( mediaURL );
 
 	const selectMedia = ( media ) => {
 		onSelect( media );
