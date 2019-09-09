@@ -5,6 +5,12 @@
 .block-editor-media-flow__url-input {
 	padding: 10px;
 
+	.components-external-link__icon {
+		position: absolute;
+		right: 38px;
+		bottom: 32px;
+	}
+
 	// Mimic toolbar component styles for the icons in this popover.
 	.components-icon-button {
 		padding: 3px;
