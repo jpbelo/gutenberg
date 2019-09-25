@@ -1,5 +1,5 @@
-.components-popover:not(.is-mobile).is-bottom {
-	z-index: 1000000;
+.components-dropdown-menu__popover:not(.is-mobile) {
+	z-index: z-index(".components-dropdown-menu__popover");
 }
 
 .block-editor-media-flow__url-input {

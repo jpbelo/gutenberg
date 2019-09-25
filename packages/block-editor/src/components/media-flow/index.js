@@ -1,7 +1,7 @@
 /**
  * WordPress dependencies
  */
-import { Fragment, useState } from '@wordpress/element';
+import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import {
 	FormFileUpload,
@@ -16,20 +16,30 @@ import { compose } from '@wordpress/compose';
  * Internal dependencies
  */
 import BlockControls from '../block-controls';
-import MediaPlaceholder from '../media-placeholder';
-import BlockIcon from '../block-icon';
 import MediaUpload from '../media-upload';
 import MediaUploadCheck from '../media-upload/check';
 import LinkEditor from '../url-popover/link-editor';
 import LinkViewer from '../url-popover/link-viewer';
 
-const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedTypes, onSelect, onSelectURL, notices, children, noticeOperations, name = __( 'Replace' ), multiple = false } ) => {
+const MediaFlow = (
+	{
+		mediaUpload,
+		mediaURL,
+		allowedTypes,
+		onSelect,
+		onSelectURL,
+		noticeOperations,
+		name = __( 'Replace' ),
+		multiple = false,
+	}
+) => {
 	const [ showURLInput, setshowURLInput ] = useState( false );
 	const [ showEditURLInput, setshowEditURLInput ] = useState( false );
 	const [ mediaURLValue, setMediaURLValue ] = useState( mediaURL );
 
 	const selectMedia = ( media ) => {
 		onSelect( media );
+		setMediaURLValue( media.url );
 	};
 
 	const onUploadError = ( message ) => {
@@ -136,29 +146,10 @@ const MediaFlow = ( { mediaUpload, className, value, mediaURL, accepts, allowedT
 		</BlockControls>
 	);
 
-	const mediaPlaceholder = (
-		<MediaPlaceholder
-			icon={ <BlockIcon icon={ 'edit' } /> }
-			onSelect={ selectMedia }
-			onSelectMedia={ selectMedia }
-			onSelectURL={ onSelectURL }
-			accept={ accepts }
-			allowedTypes={ allowedTypes }
-			className={ className }
-			mediaURL={ mediaURL }
-			accepts={ allowedTypes }
-			value={ value }
-			notices={ notices }
-			onError={ onUploadError }
-		/>
-	);
-
 	return (
-		<Fragment>
-			{ mediaURL && editMediaButton }
-			{ mediaURL && children }
-			{ ! mediaURL && mediaPlaceholder }
-		</Fragment>
+		<>
+			{ editMediaButton }
+		</>
 	);
 };
 

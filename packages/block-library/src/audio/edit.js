@@ -1,9 +1,3 @@
-
-/**
- * Internal dependencies
- */
-import { createUpgradedEmbedBlock } from '../embed/util';
-
 /**
  * WordPress dependencies
  */
@@ -11,19 +5,33 @@ import { getBlobByURL, isBlobURL } from '@wordpress/blob';
 import { compose } from '@wordpress/compose';
 import {
 	Disabled,
+	IconButton,
 	PanelBody,
 	SelectControl,
 	ToggleControl,
+	Toolbar,
 	withNotices,
 } from '@wordpress/components';
 import {
+	BlockControls,
+	BlockIcon,
 	InspectorControls,
+	MediaPlaceholder,
 	RichText,
-	MediaFlow,
 } from '@wordpress/block-editor';
 import { Component } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 import { withSelect } from '@wordpress/data';
+
+/**
+ * Internal dependencies
+ */
+import icon from './icon';
+
+/**
+ * Internal dependencies
+ */
+import { createUpgradedEmbedBlock } from '../embed/util';
 
 const ALLOWED_MEDIA_TYPES = [ 'audio' ];
 
@@ -110,11 +118,16 @@ class AudioEdit extends Component {
 	render() {
 		const { autoplay, caption, loop, preload, src } = this.props.attributes;
 		const { setAttributes, isSelected, className, noticeUI } = this.props;
+		const { editing } = this.state;
+		const switchToEditing = () => {
+			this.setState( { editing: true } );
+		};
 		const onSelectAudio = ( media ) => {
 			if ( ! media || ! media.url ) {
 				// in this case there was an error and we should continue in the editing state
 				// previous attributes should be removed because they may be temporary blob urls
 				setAttributes( { src: undefined, id: undefined } );
+				switchToEditing();
 				return;
 			}
 			// sets the block's attribute and updates the edit component from the
@@ -122,20 +135,34 @@ class AudioEdit extends Component {
 			setAttributes( { src: media.url, id: media.id } );
 			this.setState( { src: media.url, editing: false } );
 		};
+		if ( editing ) {
+			return (
+				<MediaPlaceholder
+					icon={ <BlockIcon icon={ icon } /> }
+					className={ className }
+					onSelect={ onSelectAudio }
+					onSelectURL={ this.onSelectURL }
+					accept="audio/*"
+					allowedTypes={ ALLOWED_MEDIA_TYPES }
+					value={ this.props.attributes }
+					notices={ noticeUI }
+					onError={ this.onUploadError }
+				/>
+			);
+		}
 
 		return (
-			<MediaFlow
-				className={ className }
-				onSelectMedia={ onSelectAudio }
-				onSelect={ onSelectAudio }
-				onSelectURL={ this.onSelectURL }
-				mediaURL={ src }
-				accepts={ 'audio/*' }
-				allowedTypes={ ALLOWED_MEDIA_TYPES }
-				value={ this.props.attributes }
-				notices={ noticeUI }
-				onError={ this.onUploadError }
-			>
+			<>
+				<BlockControls>
+					<Toolbar>
+						<IconButton
+							className="components-icon-button components-toolbar__control"
+							label={ __( 'Edit audio' ) }
+							onClick={ switchToEditing }
+							icon="edit"
+						/>
+					</Toolbar>
+				</BlockControls>
 				<InspectorControls>
 					<PanelBody title={ __( 'Audio Settings' ) }>
 						<ToggleControl
@@ -180,7 +207,7 @@ class AudioEdit extends Component {
 						/>
 					) }
 				</figure>
-			</MediaFlow>
+			</>
 		);
 	}
 }
