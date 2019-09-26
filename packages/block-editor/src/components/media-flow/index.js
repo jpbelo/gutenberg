@@ -89,26 +89,27 @@ const MediaFlow = (
 			>
 				<div> { __( 'Insert from URL' ) } </div>
 			</MenuItem>
-			{ showURLInput && <div className="block-editor-media-flow__url-input">
-				{ showEditURLInput ? ( <LinkEditor
-					value={ mediaURLValue }
-					isFullWidth={ true }
-					hasBorder={ true }
-					onChangeInputValue={ ( url ) => ( setMediaURLValue( url ) ) }
-					onSubmit={ ( event ) => {
-						event.preventDefault();
-						onSelectURL( mediaURLValue );
-						setshowEditURLInput( ! showEditURLInput );
-					} }
-				/> ) : ( <LinkViewer
-					isFullWidth={ true }
-					className="editor-format-toolbar__link-container-content block-editor-format-toolbar__link-container-content"
-					url={ mediaURLValue }
-					onEditLinkClick={ () => ( setshowEditURLInput( ! showEditURLInput ) ) }
-				/> )
-				} </div> }
 		</>
 	);
+
+	const urlInputUI = ( showURLInput && <div className="block-editor-media-flow__url-input">
+		{ showEditURLInput ? ( <LinkEditor
+			value={ mediaURLValue }
+			isFullWidth={ true }
+			hasBorder={ true }
+			onChangeInputValue={ ( url ) => ( setMediaURLValue( url ) ) }
+			onSubmit={ ( event ) => {
+				event.preventDefault();
+				onSelectURL( mediaURLValue );
+				setshowEditURLInput( ! showEditURLInput );
+			} }
+		/> ) : ( <LinkViewer
+			isFullWidth={ true }
+			className="editor-format-toolbar__link-container-content block-editor-format-toolbar__link-container-content"
+			url={ mediaURLValue }
+			onEditLinkClick={ () => ( setshowEditURLInput( ! showEditURLInput ) ) }
+		/> )
+		} </div> );
 
 	const editMediaButton = (
 		<BlockControls>
@@ -125,6 +126,7 @@ const MediaFlow = (
 								showLabel={ true }
 								className={ 'media-flow_toolbar' }
 								onToggle={ () => ( setshowURLInput( false ) ) }
+								helperUI={ urlInputUI }
 							>
 								{ () => (
 									<>

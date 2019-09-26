@@ -45,6 +45,7 @@ function DropdownMenu( {
 	// The following props exist for backward compatibility.
 	menuLabel,
 	position,
+	helperUI,
 } ) {
 	if ( menuLabel ) {
 		deprecated( '`menuLabel` prop in `DropdownComponent`', {
@@ -119,42 +120,47 @@ function DropdownMenu( {
 				}, menuProps );
 
 				return (
-					<NavigableMenu
-						{ ...mergedMenuProps }
-						role="menu"
-					>
-						{
-							isFunction( children ) ?
-								children( props ) :
-								null
-						}
-						{ flatMap( controlSets, ( controlSet, indexOfSet ) => (
-							controlSet.map( ( control, indexOfControl ) => (
-								<IconButton
-									key={ [ indexOfSet, indexOfControl ].join() }
-									onClick={ ( event ) => {
-										event.stopPropagation();
-										props.onClose();
-										if ( control.onClick ) {
-											control.onClick();
-										}
-									} }
-									className={ classnames(
-										'components-dropdown-menu__menu-item',
-										{
-											'has-separator': indexOfSet > 0 && indexOfControl === 0,
-											'is-active': control.isActive,
-										},
-									) }
-									icon={ control.icon }
-									role="menuitem"
-									disabled={ control.isDisabled }
-								>
-									{ control.title }
-								</IconButton>
-							) )
-						) ) }
-					</NavigableMenu>
+					<>
+						<NavigableMenu
+							{ ...mergedMenuProps }
+							role="menu"
+						>
+							{
+								isFunction( children ) ?
+									children( props ) :
+									null
+							}
+							{ flatMap( controlSets, ( controlSet, indexOfSet ) => (
+								controlSet.map( ( control, indexOfControl ) => (
+									<IconButton
+										key={ [ indexOfSet, indexOfControl ].join() }
+										onClick={ ( event ) => {
+											event.stopPropagation();
+											props.onClose();
+											if ( control.onClick ) {
+												control.onClick();
+											}
+										} }
+										className={ classnames(
+											'components-dropdown-menu__menu-item',
+											{
+												'has-separator': indexOfSet > 0 && indexOfControl === 0,
+												'is-active': control.isActive,
+											},
+										) }
+										icon={ control.icon }
+										role="menuitem"
+										disabled={ control.isDisabled }
+									>
+										{ control.title }
+									</IconButton>
+								) )
+							) ) }
+						</NavigableMenu>
+						<div className="components-dropdown-menu__helper-ui">
+							{ helperUI }
+						</div>
+					</>
 				);
 			} }
 		/>
