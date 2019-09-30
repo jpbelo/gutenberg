@@ -46,6 +46,7 @@ function DropdownMenu( {
 	menuLabel,
 	position,
 	helperUI,
+	dropDownRef,
 } ) {
 	if ( menuLabel ) {
 		deprecated( '`menuLabel` prop in `DropdownComponent`', {
@@ -81,6 +82,7 @@ function DropdownMenu( {
 	return (
 		<Dropdown
 			className={ classnames( 'components-dropdown-menu', className ) }
+			ref={ dropDownRef }
 			popoverProps={ mergedPopoverProps }
 			onToggle={ onToggle }
 			renderToggle={ ( { isOpen, onToggle: onDropdownToggle } ) => {

@@ -37,6 +37,11 @@ const MediaFlow = (
 	const [ showEditURLInput, setshowEditURLInput ] = useState( false );
 	const [ mediaURLValue, setMediaURLValue ] = useState( mediaURL );
 
+	let mediaFlowOptionsMenu;
+	const getMediaFlowRef = ( element ) => {
+		mediaFlowOptionsMenu = element;
+	};
+
 	const selectMedia = ( media ) => {
 		onSelect( media );
 		setMediaURLValue( media.url );
@@ -53,7 +58,12 @@ const MediaFlow = (
 		if ( multiple ) {
 			setMedia = selectMedia;
 		} else {
-			setMedia = ( [ media ] ) => selectMedia( media );
+			setMedia = ( [ media ] ) => {
+				if ( !! mediaFlowOptionsMenu ) {
+					mediaFlowOptionsMenu.close();
+				}
+				selectMedia( media );
+			};
 		}
 		mediaUpload( {
 			allowedTypes,
@@ -116,11 +126,15 @@ const MediaFlow = (
 			<MediaUploadCheck>
 				<MediaUpload
 					onSelect={ ( media ) => selectMedia( media ) }
+					onClose={ () => {
+						mediaFlowOptionsMenu.close();
+					} }
 					allowedTypes={ allowedTypes }
 					render={ ( { open } ) => (
 						<>
 							<Toolbar
 								isCollapsed={ true }
+								dropDownRef={ getMediaFlowRef }
 								icon={ false }
 								label={ name }
 								showLabel={ true }
