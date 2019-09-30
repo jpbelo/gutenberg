@@ -45,6 +45,10 @@
 	width: 200px;
 }
 
+.components-popover:not(.is-mobile).components-dropdown-menu__popover > .components-popover__content {
+	overflow-x: hidden;
+}
+
 .components-dropdown-menu__menu {
 	width: 100%;
 	padding: ($grid-size - $border-width) 0;
