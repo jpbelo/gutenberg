@@ -2,24 +2,28 @@
 	z-index: z-index(".components-dropdown-menu__popover");
 }
 
+.components-dropdown-menu__menu {
+	padding-bottom: 0;
+}
+
 .block-editor-media-flow__url-input {
-	padding: 10px;
-	padding-left: 25px;
-	padding-right: 15px;
+	padding: 0 15px 10px 25px;
 
 	.components-external-link__icon {
 		position: absolute;
 		right: 50px;
-		bottom: 32px;
+		bottom: 22px;
 	}
 
 	.block-editor-url-popover__link-viewer-url.is-full-width {
-		padding-right: 15px;
+		padding-right: 10px;
+		padding-top: 3px;
+		max-width: 169px;
 	}
 
 	// Mimic toolbar component styles for the icons in this popover.
 	.components-icon-button {
-		padding: 3px;
+		padding: 5px;
 		width: 40px;
 		height: 40px;
 
