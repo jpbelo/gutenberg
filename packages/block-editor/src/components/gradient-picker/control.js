@@ -15,7 +15,7 @@ import { __ } from '@wordpress/i18n';
  */
 import GradientPicker from './';
 
-export default function( { className, ...props } ) {
+export default function( { className, label = __( 'Gradient Presets' ), ...props } ) {
 	return (
 		<BaseControl
 			className={ classnames(
@@ -24,7 +24,7 @@ export default function( { className, ...props } ) {
 			) }
 		>
 			<BaseControl.VisualLabel>
-				{ __( 'Gradient Presets' ) }
+				{ label }
 			</BaseControl.VisualLabel>
 			<GradientPicker
 				className="block-editor-gradient-picker-control__gradient-picker-presets"
