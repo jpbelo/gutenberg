@@ -81,7 +81,7 @@ function NavigationMenu( {
 						template={ defaultMenuItems ? defaultMenuItems : null }
 						allowedBlocks={ [ 'core/navigation-menu-item' ] }
 						templateInsertUpdatesSelection={ false }
-						moverOptions={ moverOptions }
+						__experimentalMoverOptions={ moverOptions }
 					/>
 				}
 			</div>
