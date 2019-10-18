@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { View } from 'react-native';
+import { Platform, View } from 'react-native';
 
 /**
  * WordPress dependencies
@@ -54,15 +54,16 @@ class ParagraphEdit extends Component {
 
 		return (
 			<View>
-				<BlockControls>
-					<AlignmentToolbar
-						isCollapsed={ false }
-						value={ align }
-						onChange={ ( nextAlign ) => {
-							setAttributes( { align: nextAlign } );
-						} }
-					/>
-				</BlockControls>
+				{ Platform.OS === 'android' &&
+					<BlockControls>
+						<AlignmentToolbar
+							isCollapsed={ false }
+							value={ align }
+							onChange={ ( nextAlign ) => {
+								setAttributes( { align: nextAlign } );
+							} }
+						/>
+					</BlockControls> }
 				<RichText
 					identifier="content"
 					tagName="p"
