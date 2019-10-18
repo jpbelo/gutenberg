@@ -14,7 +14,7 @@ addDecorator( withA11y );
 addDecorator( withKnobs );
 configure(
 	[
-		require.context( '../docs', true, /\/.+\.mdx$/ ),
+		// require.context( '../docs', true, /\/.+\.mdx$/ ),
 		require.context( '../src', true, /\/stories\/.+\.js$/ ),
 	],
 	module
