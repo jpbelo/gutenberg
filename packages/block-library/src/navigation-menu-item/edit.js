@@ -11,6 +11,14 @@ import {
 	ToggleControl,
 	ToolbarButton,
 } from '@wordpress/components';
+import {
+	LEFT,
+	RIGHT,
+	UP,
+	DOWN,
+	BACKSPACE,
+	ENTER,
+} from '@wordpress/keycodes';
 import { __ } from '@wordpress/i18n';
 import {
 	BlockControls,
@@ -32,7 +40,35 @@ function NavigationMenuItemEdit( {
 	setAttributes,
 } ) {
 	const plainTextRef = useRef( null );
-	const [ isLinkOpen, setLinkOpen ] = useState( false );
+	const [ isLinkOpen, setIsLinkOpen ] = useState( false );
+	const [ isEditingLink, setIsEditingLink ] = useState( false );
+	const [ urlInput, setUrlInput ] = useState( null );
+
+	const inputValue = urlInput !== null ? urlInput : url;
+
+	const onKeyDown = ( event ) => {
+		if ( [ LEFT, DOWN, RIGHT, UP, BACKSPACE, ENTER ].indexOf( event.keyCode ) > -1 ) {
+			// Stop the key event from propagating up to ObserveTyping.startTypingInTextField.
+			event.stopPropagation();
+		}
+	};
+
+	const closeURLPopover = () => {
+		setIsEditingLink( false );
+		setUrlInput( null );
+		setIsLinkOpen( false );
+	};
+
+	const autocompleteRef = useRef( null );
+
+	const onFocusOutside = ( event ) => {
+		const autocompleteElement = autocompleteRef.current;
+		if ( autocompleteElement && autocompleteElement.contains( event.target ) ) {
+			return;
+		}
+		closeURLPopover();
+	};
+
 	const { label, url } = attributes;
 	let content;
 	if ( isSelected ) {
@@ -59,18 +95,32 @@ function NavigationMenuItemEdit( {
 						name="link"
 						icon="admin-links"
 						title={ __( 'Link' ) }
-						onClick={ () => setLinkOpen( ! isLinkOpen ) }
+						onClick={ () => setIsLinkOpen( ! isLinkOpen ) }
 					/>
 					{ isLinkOpen &&
 					<>
 						<URLPopover
 							className="wp-block-navigation-menu-item__inline-link-input"
+							onClose={ closeURLPopover }
+							onFocusOutside={ onFocusOutside }
 						>
+							{ ( ! url || isEditingLink ) &&
 							<URLPopover.LinkEditor
-								value={ url }
-								onChangeInputValue={ ( value ) => setAttributes( { url: value } ) }
+								value={ inputValue }
+								onChangeInputValue={ setUrlInput }
 								onKeyPress={ ( event ) => event.stopPropagation() }
+								onKeyDown={ onKeyDown }
+								onSubmit={ ( event ) => event.preventDefault() }
+								autocompleteRef={ autocompleteRef }
 							/>
+							}
+							{ ( url && ! isEditingLink ) &&
+								<URLPopover.LinkViewer
+									onKeyPress={ ( event ) => event.stopPropagation() }
+									url={ url }
+								/>
+							}
+
 						</URLPopover>
 					</>
 					}
