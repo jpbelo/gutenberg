@@ -14,8 +14,9 @@ addDecorator( withA11y );
 addDecorator( withKnobs );
 configure(
 	[
-		// require.context( '../docs', true, /\/.+\.mdx$/ ),
+		// StoryShots addon doesn't support MDX files at the moment.
+		process.env.NODE_ENV !== 'test' && require.context( '../docs', true, /\/.+\.mdx$/ ),
 		require.context( '../src', true, /\/stories\/.+\.js$/ ),
-	],
+	].filter( Boolean ),
 	module
 );

@@ -7,4 +7,5 @@ import path from 'path';
 initStoryshots( {
 	configPath: path.resolve( __dirname, '../' ),
 	suite: '@wordpress/components',
+	storyKindRegex: /^((?!.*?DontTest).)*$/,
 } );
