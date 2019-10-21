@@ -26,9 +26,7 @@ export default createHigherOrderComponent( ( WrappedComponent ) => {
 		}
 
 		render() {
-			return (
-				<WrappedComponent { ...this.props } instanceId={ this.instanceId } />
-			);
+			return <WrappedComponent { ...this.props } instanceId={ this.instanceId } />;
 		}
 	};
 }, 'withInstanceId' );
