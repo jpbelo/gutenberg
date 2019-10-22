@@ -1,3 +1,7 @@
+/**
+ * External dependencies
+ */
+import { noop } from 'lodash';
 
 /**
  * WordPress dependencies
@@ -22,15 +26,11 @@ import {
 	URLInput,
 } from '../';
 
-const LinkControlInputSearch = ( { value, onChange, onSelect, renderSuggestions, fetchSuggestions, onReset } ) => {
-	const stopPropagation = ( event ) => {
-		event.stopPropagation();
-	};
-
+const LinkControlInputSearch = ( { value, onChange, onSelect, renderSuggestions, fetchSuggestions, onReset, onKeyDown = noop, onKeyPress = noop } ) => {
 	const stopPropagationRelevantKeys = ( event ) => {
 		if ( [ LEFT, DOWN, RIGHT, UP, BACKSPACE, ENTER ].indexOf( event.keyCode ) > -1 ) {
 			// Stop the key event from propagating up to ObserveTyping.startTypingInTextField.
-			stopPropagation( event );
+			event.stopPropagation();
 		}
 	};
 
@@ -45,8 +45,9 @@ const LinkControlInputSearch = ( { value, onChange, onSelect, renderSuggestions,
 					if ( event.keyCode === ENTER ) {
 						onSelect( event, suggestion );
 					}
+					onKeyDown( event, suggestion );
 				} }
-				onKeyPress={ stopPropagation }
+				onKeyPress={ onKeyPress }
 				placeholder={ __( 'Search or type url' ) }
 				renderSuggestions={ renderSuggestions }
 				fetchLinkSuggestions={ fetchSuggestions }
