@@ -25,7 +25,7 @@ import {
 	InnerBlocks,
 	InspectorControls,
 	PlainText,
-	URLPopover,
+	LinkControl,
 } from '@wordpress/block-editor';
 import {
 	Fragment,
@@ -99,29 +99,10 @@ function NavigationMenuItemEdit( {
 					/>
 					{ isLinkOpen &&
 					<>
-						<URLPopover
+						<LinkControl
 							className="wp-block-navigation-menu-item__inline-link-input"
-							onClose={ closeURLPopover }
-							onFocusOutside={ onFocusOutside }
-						>
-							{ ( ! url || isEditingLink ) &&
-							<URLPopover.LinkEditor
-								value={ inputValue }
-								onChangeInputValue={ setUrlInput }
-								onKeyPress={ ( event ) => event.stopPropagation() }
-								onKeyDown={ onKeyDown }
-								onSubmit={ ( event ) => event.preventDefault() }
-								autocompleteRef={ autocompleteRef }
-							/>
-							}
-							{ ( url && ! isEditingLink ) &&
-								<URLPopover.LinkViewer
-									onKeyPress={ ( event ) => event.stopPropagation() }
-									url={ url }
-								/>
-							}
-
-						</URLPopover>
+							onKeyPress={ ( event ) => { event.stopPropagation() } }
+						/>
 					</>
 					}
 				</Toolbar>
