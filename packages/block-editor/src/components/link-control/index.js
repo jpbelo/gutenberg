@@ -28,7 +28,15 @@ import LinkControlSettingsDrawer from './settings-drawer';
 import LinkControlSearchItem from './search-item';
 import LinkControlInputSearch from './input-search';
 
-function LinkControl( { currentLink, fetchSearchSuggestions, onLinkChange, onSettingChange = { noop }, linkSettings } ) {
+function LinkControl( {
+	currentLink,
+	fetchSearchSuggestions,
+	linkSettings,
+	onKeyDown = noop,
+	onKeyPress = noop,
+	onLinkChange,
+	onSettingChange = { noop },
+} ) {
 	// State
 	const [ inputValue, setInputValue ] = useState( '' );
 	const [ isEditingLink, setIsEditingLink ] = useState( true );
@@ -156,6 +164,8 @@ function LinkControl( { currentLink, fetchSearchSuggestions, onLinkChange, onSet
 							renderSuggestions={ renderSearchResults }
 							fetchSuggestions={ getSearchHandler }
 							onReset={ resetInput }
+							onKeyDown={ onKeyDown }
+							onKeyPress={ onKeyPress }
 						/>
 					) }
 
