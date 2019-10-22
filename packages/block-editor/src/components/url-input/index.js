@@ -1,7 +1,7 @@
 /**
  * External dependencies
  */
-import { throttle, isFunction } from 'lodash';
+import { throttle, isFunction, noop } from 'lodash';
 import classnames from 'classnames';
 import scrollIntoView from 'dom-scroll-into-view';
 
@@ -289,6 +289,7 @@ class URLInput extends Component {
 					onInput={ stopEventPropagation }
 					placeholder={ placeholder }
 					onKeyDown={ this.onKeyDown }
+					onKeyPress={ this.props.onKeyPress || noop }
 					role="combobox"
 					aria-expanded={ showSuggestions }
 					aria-autocomplete="list"
