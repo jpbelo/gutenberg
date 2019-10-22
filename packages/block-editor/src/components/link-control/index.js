@@ -32,6 +32,7 @@ function LinkControl( {
 	currentLink,
 	fetchSearchSuggestions,
 	linkSettings,
+	onClose = noop,
 	onKeyDown = noop,
 	onKeyPress = noop,
 	onLinkChange,
@@ -48,6 +49,7 @@ function LinkControl( {
 
 	const closeLinkUI = () => {
 		resetInput();
+		onClose();
 	};
 
 	const resetInput = useCallback( () => {
