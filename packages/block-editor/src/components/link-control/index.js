@@ -30,6 +30,7 @@ import LinkControlInputSearch from './input-search';
 
 function LinkControl( {
 	currentLink,
+	className,
 	fetchSearchSuggestions,
 	linkSettings,
 	onClose = noop,
@@ -127,7 +128,7 @@ function LinkControl( {
 
 	return (
 		<Popover
-			className="block-editor-link-control"
+			className={ classnames( 'block-editor-link-control', className ) }
 			onClose={ closeLinkUI }
 			position="bottom center"
 			focusOnMount="firstElement"
